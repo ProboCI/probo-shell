@@ -135,6 +135,7 @@ config.load(function(error, config) {
        * Kick off a shell instance.
        */
       var next = function(err, container) {
+        // TODO: Create a yaml file configuration for what to log.
         var logString = '';
         try {
           if (err) {
@@ -151,11 +152,12 @@ config.load(function(error, config) {
 
           log.info('Connected to docker', loginData, 'PID ' + term.pid);
 
+          // Sept 20, 2021 - Remove logging of keystrokes and output
           term.on('data', function(data) {
-            log.info(data);
+            //log.info(data);
             data = sanitizeData(data, config.sanitizeStrings);
-            log.info(data);
-            logString = logString.concat(data);
+            //log.info(data);
+            //logString = logString.concat(data);
             socket.emit('output', data);
           });
           term.on('exit', function(code) {
