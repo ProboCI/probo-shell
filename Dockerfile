@@ -1,25 +1,31 @@
-# ProboCI
-# https://www.probo.ci
+#
+# Copyright 2022 ProboCI, LLC
 
-FROM node:4.9.1
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+
+# http://www.apache.org/licenses/LICENSE-2.0
+
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+
+FROM node:4-alpine
 USER root
 
-RUN apt -y update
-RUN apt -y install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    gnupg \
-    lsb-release
+RUN apk update
+RUN apk add curl gnupg wget python make g++
 
 RUN wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.7.tgz \
   && tar -xvzf docker-20.10.7.tgz \
   && cp docker/* /usr/bin/
 
-RUN useradd --user-group --create-home --shell /bin/false probo
 RUN mkdir -p /home/probo/app
 COPY . /home/probo/app
-RUN chown -R probo:probo /home/probo/app
 
 RUN cd /home/probo/app/ && npm install
 
