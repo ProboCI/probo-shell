@@ -14,11 +14,11 @@
 # limitations under the License.
 #
 
-FROM node:4-alpine
+FROM node:4
 USER root
 
-RUN apk update
-RUN apk add curl gnupg wget python make g++
+RUN apt-get upgrade
+RUN apt-get install curl gnupg wget python make g++
 
 RUN wget https://download.docker.com/linux/static/stable/x86_64/docker-20.10.7.tgz \
   && tar -xvzf docker-20.10.7.tgz \
