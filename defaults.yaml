@@ -4,6 +4,7 @@ server.port: 3015
 server.host: 127.0.0.1
 dockerConfig:
   socketPath: '/var/run/docker.sock'
+  version: 1.44
 ssl: {}
 operations:
   bash:
