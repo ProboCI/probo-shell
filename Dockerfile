@@ -19,9 +19,9 @@ USER root
 
 RUN apt-get upgrade
 RUN apt-get install curl gnupg wget python make g++
-
-RUN wget https://download.docker.com/linux/static/stable/x86_64/docker-27.5.1.tgz \
-  && tar -xvzf docker-27.5.1.tgz \
+        
+RUN wget https://download.docker.com/linux/static/stable/x86_64/docker-29.1.2.tgz \
+  && tar -xvzf docker-29.1.2.tgz \
   && cp docker/* /usr/bin/
 
 RUN mkdir -p /home/probo/app
