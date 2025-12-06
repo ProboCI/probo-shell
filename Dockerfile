@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-FROM node:4
+FROM node:22
 USER root
 
 RUN apt-get upgrade
