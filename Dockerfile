@@ -14,12 +14,11 @@
 # limitations under the License.
 #
 
-FROM node:22
+FROM node:22-alpine
 USER root
 
-RUN apt-get upgrade
-RUN apt-get install curl gnupg wget python make g++
-        
+RUN apk add python3 make build-base
+
 RUN wget https://download.docker.com/linux/static/stable/x86_64/docker-29.1.2.tgz \
   && tar -xvzf docker-29.1.2.tgz \
   && cp docker/* /usr/bin/
