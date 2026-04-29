@@ -6,6 +6,11 @@ dockerConfig:
   socketPath: '/var/run/docker.sock'
   version: 'v1.44'
 ssl: {}
+logging:
+  enabled: false
+  path: /var/log/probo-shell/probo-shell.log
+  period: 1d
+  count: 7
 operations:
   bash:
     - bash

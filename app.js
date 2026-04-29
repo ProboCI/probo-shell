@@ -15,11 +15,9 @@ var loader = new Loader();
 
 var ms = require('ms');
 var config = require('./lib/config');
-var log = bunyan.createLogger({name: 'probo-shell', level: 'debug',
-  streams: [{
-    stream: process.stdout
-  }]});
 process.title = 'probo-shell';
+
+var log;
 
 config.load(function(error, config) {
   var app = express();
@@ -27,6 +25,30 @@ config.load(function(error, config) {
 
   if (error) {
     throw error;
+  }
+
+  log = createLogger(config);
+
+  function createLogger(config) {
+    var logging = config.logging || {};
+    var stream;
+    if (logging.enabled === true || logging.enabled === 'true') {
+      var logPath = logging.path;
+      var dir = path.dirname(logPath);
+      if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, {recursive: true});
+      }
+      stream = {
+        type: 'rotating-file',
+        path: logPath,
+        period: logging.period || '1d',
+        count: parseInt(logging.count, 10) || 7,
+      };
+    }
+    else {
+      stream = {stream: process.stdout};
+    }
+    return bunyan.createLogger({name: 'probo-shell', level: 'debug', streams: [stream]});
   }
 
   process.on('uncaughtException', function(e) {
