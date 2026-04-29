@@ -54,6 +54,12 @@ Configuration is loaded in layers: `defaults.yaml` → environment variables →
 | `dockerConfig.version` | Docker API version | `v1.44` |
 | `operations` | Map of operation names to command arrays | See `defaults.yaml` |
 | `sanitizeStrings` | Regex patterns to scrub from terminal output | See `defaults.yaml` |
+| `logging.enabled` | Write logs to a rotating file instead of stdout | `false` |
+| `logging.path` | Log file path (parent directory is created if missing) | `/var/log/probo-shell/probo-shell.log` |
+| `logging.period` | Rotation period (any value bunyan accepts, e.g. `1d`, `1h`) | `1d` |
+| `logging.count` | Number of rotated files to retain | `7` |
+
+When `logging.enabled` is `true`, output goes to the rotating log file and stdout logging is disabled. When `false`, logs are written to stdout and the file settings are ignored.
 
 For local development, create a `shell.yaml` file (gitignored) by copying `defaults.yaml` and customizing as needed.
 
